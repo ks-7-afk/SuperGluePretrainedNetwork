@@ -481,6 +481,7 @@ def make_matching_plot(image0, image1, kpts0, kpts1, mkpts0, mkpts1,
     plt.close()
 
 
+
 def make_matching_plot_fast(image0, image1, kpts0, kpts1, mkpts0,
                             mkpts1, color, text, path=None,
                             show_keypoints=False, margin=10,
@@ -490,6 +491,11 @@ def make_matching_plot_fast(image0, image1, kpts0, kpts1, mkpts0,
     H1, W1 = image1.shape
     H, W = max(H0, H1), W0 + W1 + margin
 
+    image0 = cv2.normalize(image0, np.zeros(shape=image0.shape), alpha=0, beta=255, norm_type=cv2.NORM_MINMAX)
+    image0 = image0.astype(np.uint8)
+    image1 = cv2.normalize(image1, np.zeros(shape=image1.shape), alpha=0, beta=255, norm_type=cv2.NORM_MINMAX)
+    image1 = image1.astype(np.uint8)
+    
     out = 255*np.ones((H, W), np.uint8)
     out[:H0, :W0] = image0
     out[:H1, W0+margin:] = image1
